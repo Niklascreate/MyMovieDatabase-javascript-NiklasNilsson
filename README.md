@@ -1,2 +1,6 @@
-# MyMovieDatabase-javascript-NiklasNilsson
-Examination på javascript
+
+![logo](/Template/res/logo.png)
+
+# Examinationsuppgift Javascript
+
+## Niklas Nilsson
