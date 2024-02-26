@@ -5,9 +5,9 @@ window.addEventListener('load', () => {
     renderTopMovies();
     renderTrailers();
     const searchBtnRef = document.querySelector('#searchBtn');
-    searchBtn.addEventListener('click', (event) => {
+    searchBtnRef.addEventListener('click', (event) => {
         event.preventDefault();
-        fetchSearchInput();
+        renderSearchInput();
     });
 });
 
@@ -74,12 +74,10 @@ function renderTopMovies() {
                     trailerLinkElement.textContent = 'Watch Trailer';
                     movieCard.appendChild(trailerLinkElement);
 
-                    const imdbIdElement = document.createElement('p');
-                    imdbIdElement.textContent = `IMDb ID: ${movie.imdbid}`;
-                    movieCard.appendChild(imdbIdElement);
 
-                    
+
                     container.appendChild(movieCard);
+
                 });
             } catch (error) {
                 console.error('Hä blev dä fel du:', error.message);
@@ -120,31 +118,33 @@ async function fetchSearchInput(query) {
     }
 }
 
-async function showSearchInput() {
-    const query = document.querySelector('#searchInput');
-    console.log(query.value);
+async function renderSearchInput() {
+    const query = document.querySelector('#searchInput').value;
+    console.log(query);
     if (query) {
         try {
-            const searchResults = await fetchSearchInput(query.value);
-            console.log('resultat', searchResults);
+            const searchResults = await fetchSearchInput(query);
+            console.log('resultat av sökning', searchResults);
             if (!searchResults || searchResults.length === 0) {
                 console.log('Inga resultat hittades.');
             } else {
-                console.log('hej');
-                const searchResultsContainer = document.querySelector('.results');
-                console.log(searchResultsContainer);
+                const searchResultsContainerRef = document.querySelector('#resultsContainer');
+                console.log(searchResultsContainerRef);
+                const popularCardContainerRef = document.querySelector('#popularCardContainer');
+                const popularTitleRef = document.querySelector('.popular__title');
                 
-                const popularCardContainer = document.querySelector('#popularCardContainer')
-                console.log(popularCardContainer);
-                popularCardContainer.classList.add('d-none');
+                searchResultsContainerRef.classList.remove('d-none');             
+                popularCardContainerRef.classList.add('d-none');
+                popularTitleRef.classList.add('d-none');
 
-                searchResultsContainer.innerHTML = '';
+                searchResultsContainerRef.innerHTML = '';
+
 
                 const resultsToShow = searchResults.slice(0, 10);
 
                 resultsToShow.forEach(result => {
-                    const card = document.createElement('div');
-                    card.classList.add('card');
+                    const newMovieCard = document.createElement('div');
+                    newMovieCard.classList.add('newMovieContainer');
 
                     const title = document.createElement('h3');
                     title.textContent = result.Title;
@@ -155,17 +155,17 @@ async function showSearchInput() {
                     const type = document.createElement('p');
                     type.textContent = `Type: ${result.Type}`;
 
-                    card.appendChild(title);
-                    card.appendChild(year);
-                    card.appendChild(type);
+                    newMovieCard.appendChild(title);
+                    newMovieCard.appendChild(year);
+                    newMovieCard.appendChild(type);
 
-                    searchResultsContainer.appendChild(card);
+                    searchResultsContainerRef.appendChild(newMovieCard);
                 });
-
-                searchResultsContainer.classList.remove('d-none');
             }
         } catch (error) {
             console.error('Fel vid hantering av sökresultat:', error);
         }
     }
 }
+
+
