@@ -33,6 +33,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 200px;
 }
 
 .header img {
@@ -72,8 +73,8 @@ body {
 /* Carousel */
 .carousel {
     margin: auto;
-    margin-top: 2rem;
-    width: 70%;
+    margin-top: 0.5rem;
+    width: 60%;
     aspect-ratio: 3/2;
     position: relative;
     background-color: var(--primary-grey);
@@ -131,16 +132,12 @@ body {
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     letter-spacing: 5px;
-    color: white;
+    color: yellow;
     font-size: 2rem;
     font-weight: 700;
     margin-top: 3rem;
 }
 
-#downArrow {
-    margin-top: 5rem;
-    margin-left: 39rem;
-}
 
 .popular__card-container {
     margin-top: 5rem;
@@ -168,7 +165,7 @@ body {
     margin-top: 5rem;
     background-color: rgb(63, 63, 63);
     padding: 10px;
-    transform: scale(1.1);
+    transform: scale(1.02);
     border-radius: 5px;
 }
 
@@ -193,7 +190,7 @@ body {
     text-align: center;
     font-family:'Times New Roman', Times, serif;
     font-size: 1.5rem;
-    color: rgb(167, 167, 19);
+    color: yellow;
     font-weight: 600;
     letter-spacing: 7px;
     margin-top: 1rem;
@@ -205,22 +202,184 @@ body {
     letter-spacing: 1px;
 }
 
+.newMovieContainer {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    background-color: var(--primary-grey);
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid black;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.newMovieContainer:hover {
+    transform: scale(1.02);
+    background-color: rgb(63, 63, 63);
+}
+
+.newMovieContainer h3 {
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+
+
+.newMovieContainer p {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 1rem;
+    color: yellow;
+    font-weight: 600;
+}
+
+#resultsContainer {
+    margin-top: 5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 2fr);
+}
+
+
+#specificMovieCard {
+    width: 800px;
+    height: 300px;
+}
+
+#movie__card-title {
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+.movie__content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#movie__card-year {
+    color: yellow;
+}
+
+#movie__card-plot {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 1rem;
+    color: white;
+    font-weight: 600;
+}
+
+#movieDataBaseLogo {
+    width: 300px;
+    height: auto;
+    margin-top: 2rem;
+}
+
+.movie-header {
+    display: flex;
+    justify-content: center;
+}
 
 
 
 /* Media Queries */
+
 @media screen and (max-width: 1380px) {
+    #resultsContainer {
+        max-width: 100%;
+        grid-template-columns: repeat(2, 5fr);
+    }
+
     .content-wrapper {
+        max-width: 100%;
+    }
+
+    .carousel {
+        max-width: 100%;
     }
 }
 
 @media screen and (max-width: 1100px) {
+
     .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    #resultsContainer {
+        max-width: 100%;
+    }
+
+    .newMovieContainer{
+        max-width: 100%;
+    }
+
+    .popular__card-container {
+        grid-template-columns: repeat(2, 5fr);
+        max-width: 100%;
+    }
+
+    .carousel {
+        max-width: 100%;
     }
 }
 
 @media screen and (max-width: 750px) {
     .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+    #resultsContainer {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .popular__card-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .carousel {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #resultsContainer {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .popular__card-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .carousel {
+        max-width: 100%;
     }
 }
 

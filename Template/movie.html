@@ -9,20 +9,23 @@
 </head>
 <body>
     <header>
-        <div class="content-wrapper header-flex">
-            <a href="index.html"><img src="./res/logo.png" alt="logotype"></a>      
+        <div class="content-wrapper header-flex movie-header">
+            <a href="index.html"><img src="./res/logo.png" alt="My Movie Database logotype" id="movieDataBaseLogo"></a>      
         </div>
     </header>
 
-    <section>
-        <div class="content-wrapper">
-            <article class="movie-details" id="movieDetails">
-
-            </article>
+    <section class="movie-details">
+        <div class="movie__content-wrapper">
+            <div class="movie-card" id="specificMovieCard">
+                <h2 id="movie__card-title"></h2>
+                <img id="movie__card-posterImg" alt="">
+                <p id="movie__card-year"></p>
+                <p id="movie__card-plot"></p>
+            </div>
         </div>
     </section>
     
 
-    <script src="./scripts/script.js"></script>
+    <script type="module" src="./scripts/script.js"></script>
 </body>
 </html>

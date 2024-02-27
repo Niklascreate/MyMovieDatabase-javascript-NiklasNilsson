@@ -67,11 +67,13 @@ function renderTopMovies() {
 
                     const posterElement = document.createElement('img');
                     posterElement.src = movie.poster;
+                    posterElement.alt = `Poster for ${movie.title}`;
                     movieCard.appendChild(posterElement);
 
                     const trailerLinkElement = document.createElement('a');
                     trailerLinkElement.href = movie.trailer_link;
                     trailerLinkElement.textContent = 'Watch Trailer';
+                    trailerLinkElement.setAttribute('alt', `Trailer for ${movie.title}`);
                     movieCard.appendChild(trailerLinkElement);
 
 
@@ -103,7 +105,7 @@ async function renderTrailers() {
             iframe.src = data.splice(Math.floor(Math.random() * data.length),1)[0].trailer_link;
         })
     } catch (error) {
-        
+        console.error('Error fetching trailers:', error);
     }
 }
 
@@ -114,35 +116,31 @@ async function fetchSearchInput(query) {
         console.log(data.Search);
         return data.Search;
     } catch (error) {
-        console.error('Fel vid hämtning av sökresultat:', error);
+        console.error('Error fetching search results:', error);
     }
 }
 
 async function renderSearchInput() {
     const query = document.querySelector('#searchInput').value;
-    console.log(query);
     if (query) {
         try {
             const searchResults = await fetchSearchInput(query);
-            console.log('resultat av sökning', searchResults);
             if (!searchResults || searchResults.length === 0) {
-                console.log('Inga resultat hittades.');
             } else {
                 const searchResultsContainerRef = document.querySelector('#resultsContainer');
-                console.log(searchResultsContainerRef);
                 const popularCardContainerRef = document.querySelector('#popularCardContainer');
                 const popularTitleRef = document.querySelector('.popular__title');
-                
-                searchResultsContainerRef.classList.remove('d-none');             
+
+                searchResultsContainerRef.classList.remove('d-none');
                 popularCardContainerRef.classList.add('d-none');
                 popularTitleRef.classList.add('d-none');
+              
 
                 searchResultsContainerRef.innerHTML = '';
 
-
                 const resultsToShow = searchResults.slice(0, 10);
 
-                resultsToShow.forEach(result => {
+                for (const result of resultsToShow) {
                     const newMovieCard = document.createElement('div');
                     newMovieCard.classList.add('newMovieContainer');
 
@@ -152,20 +150,75 @@ async function renderSearchInput() {
                     const year = document.createElement('p');
                     year.textContent = `Year: ${result.Year}`;
 
-                    const type = document.createElement('p');
-                    type.textContent = `Type: ${result.Type}`;
+                    const poster = document.createElement('img');
+
+                    
+                    const movieDetails = await fetchMovieDetails(result.imdbID);
+                    poster.src = movieDetails.Poster;
+                    poster.alt = `${result.Title} Poster`;
 
                     newMovieCard.appendChild(title);
                     newMovieCard.appendChild(year);
-                    newMovieCard.appendChild(type);
+                    newMovieCard.appendChild(poster);
 
+                    newMovieCard.addEventListener('click', async () => {
+                        const imdbID = result.imdbID;
+            
+                        if (imdbID) {
+                            
+                            window.location.href = `./movie.html?imdbID=${imdbID}`;
+                        }
+                    });
+            
                     searchResultsContainerRef.appendChild(newMovieCard);
-                });
+                }
             }
         } catch (error) {
             console.error('Fel vid hantering av sökresultat:', error);
         }
     }
+
+    
+
+}
+
+async function fetchMovieDetails(imdbID) {
+    try {
+        const response = await fetch(`http://www.omdbapi.com/?apikey=dd29a2&i=${imdbID}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Fel vid hämtning av filminformation:', error);
+    }
 }
 
 
+const urlParams = new URLSearchParams(window.location.search);
+const imdbID = urlParams.get('imdbID');
+
+if (imdbID) {
+
+    fetchAndDisplayMovieDetails(imdbID);
+} else {
+    console.error('IMDb ID not found in the URL.');
+}
+
+
+async function fetchAndDisplayMovieDetails(imdbID) {
+    try {
+        const response = await fetch(`http://www.omdbapi.com/?apikey=dd29a2&i=${imdbID}`);
+        const data = await response.json();
+
+        const posterElement = document.querySelector('#movie__card-posterImg')
+        const titleElement = document.querySelector('#movie__card-title');
+        const yearElement = document.querySelector('#movie__card-year');
+        const plotElement = document.querySelector('#movie__card-plot');
+
+        titleElement.textContent = data.Title;
+        yearElement.textContent = `Year: ${data.Year}`;
+        plotElement.textContent = `Plot: ${data.Plot}`;
+
+    } catch (error) {
+        console.error('Error fetching movie details:', error);
+    }
+}
