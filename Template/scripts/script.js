@@ -209,14 +209,17 @@ async function fetchAndDisplayMovieDetails(imdbID) {
         const response = await fetch(`http://www.omdbapi.com/?apikey=dd29a2&i=${imdbID}`);
         const data = await response.json();
 
-        const posterElement = document.querySelector('#movie__card-posterImg')
         const titleElement = document.querySelector('#movie__card-title');
         const yearElement = document.querySelector('#movie__card-year');
         const plotElement = document.querySelector('#movie__card-plot');
+        const genreElement = document.querySelector('#movie__card-genre');
+        const actorsElement = document.querySelector('#movie__card-actors');
 
         titleElement.textContent = data.Title;
         yearElement.textContent = `Year: ${data.Year}`;
         plotElement.textContent = `Plot: ${data.Plot}`;
+        genreElement.textContent = `Genre: ${data.Genre}`;
+        actorsElement.textContent = `Top Actors: ${data.Actors}`;
 
     } catch (error) {
         console.error('Error fetching movie details:', error);

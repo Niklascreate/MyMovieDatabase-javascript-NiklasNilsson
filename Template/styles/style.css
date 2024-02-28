@@ -249,7 +249,6 @@ body {
 
 #specificMovieCard {
     width: 800px;
-    height: 300px;
 }
 
 #movie__card-title {
@@ -280,6 +279,14 @@ body {
     font-weight: 600;
 }
 
+#movie__card-genre {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 1rem;
+    color: white;
+    font-weight: 600;
+}
+
 #movieDataBaseLogo {
     width: 300px;
     height: auto;
@@ -291,6 +298,19 @@ body {
     justify-content: center;
 }
 
+#backButton {
+    color: yellow;
+    font-size: 16px;
+    background-color: grey;
+    text-decoration-line: none;
+    cursor: pointer;
+    margin-top: 1rem;
+    align-self: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+}
+
 
 
 /* Media Queries */
@@ -298,7 +318,7 @@ body {
 @media screen and (max-width: 1380px) {
     #resultsContainer {
         max-width: 100%;
-        grid-template-columns: repeat(2, 5fr);
+        grid-template-columns: repeat(3, 4fr);
     }
 
     .content-wrapper {
@@ -307,6 +327,12 @@ body {
 
     .carousel {
         max-width: 100%;
+    }
+
+    .movie-card {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -319,6 +345,7 @@ body {
     }
 
     #resultsContainer {
+        grid-template-columns: repeat(2, 5fr);
         max-width: 100%;
     }
 
@@ -333,6 +360,12 @@ body {
 
     .carousel {
         max-width: 100%;
+    }
+
+    .movie-card {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -356,6 +389,12 @@ body {
 
     .carousel {
         max-width: 100%;
+    }
+
+    .movie-card {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -381,8 +420,25 @@ body {
     .carousel {
         max-width: 100%;
     }
-}
 
+    .movie__content-wrapper {
+        text-align: center;
+        max-width: 100%;
+        flex-direction: column;
+    }
+
+    .movie-card {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .movie-header {
+        align-self: center;
+        display: flex;
+        justify-content: center;
+    }
+}
 /* Utils */
 .content-wrapper {
     width: 1280px;
